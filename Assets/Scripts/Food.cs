@@ -5,11 +5,9 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     public BoxCollider2D grid;
-    public Snake snake;
     
     void Start()
     {
-        //snake = GetComponent<Snake>();
         RandomPosition();
     }
     void Update()
@@ -19,6 +17,11 @@ public class Food : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if( other.tag == "Player"){
+            // 碰到蛇头
+            RandomPosition();
+        }
+        else if( other.tag == "Body"){
+            // 碰到蛇身，即食物生成在蛇身上
             RandomPosition();
         }
     }
@@ -28,9 +31,15 @@ public class Food : MonoBehaviour
         float x = UnityEngine.Random.Range(bounds.min.x, bounds.max.x);
         float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
 
-        // if(snake.inBody(x, y)){
-        //     this.transform.position = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
-        // }
-        this.transform.position = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
+        x = Mathf.Round(x);
+        y = Mathf.Round(y);
+
+        // 因为snake的scale是2，所以它的面积实际上是乘以4
+        // 当坐标不是4的整数时，食物无法与蛇头对齐
+        // 但我这样盲目减去余数，可能导致食物生成在墙外
+        if (x % 4 != 0) x -= x % 4;
+        if (y % 4 != 0) y -= y % 4;
+
+        this.transform.position = new Vector3(x, y, 0.0f);
     }
 }

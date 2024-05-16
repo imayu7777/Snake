@@ -8,6 +8,7 @@ public class Snake : MonoBehaviour
     public List<Transform> bodys = new List<Transform>();
     public Transform bodyPrefab;    //用prefab初始化即可
     public int initalSize = 4;
+    public float fixedTimeIncreasement = 0.01f;
     void Start()
     {
         Reset();
@@ -42,10 +43,11 @@ public class Snake : MonoBehaviour
             bodys[i].position = bodys[i - 1].position;
         }
         this.transform.position = new Vector3(
-            Mathf.Round((this.transform.position.x) + direction.x*transform.localScale.x),
-            Mathf.Round((this.transform.position.y) + direction.y*transform.localScale.y),
+            Mathf.Round(transform.position.x + direction.x * transform.localScale.x),
+            Mathf.Round(transform.position.y + direction.y * transform.localScale.y),
             0.0f
         );
+        Time.fixedDeltaTime += fixedTimeIncreasement;
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -53,7 +55,7 @@ public class Snake : MonoBehaviour
         {
             Grow();
         }
-        else if (direction != Vector2.zero && other.tag == "Obstacle")
+        else if (direction != Vector2.zero && (other.tag == "Wall" || other.tag == "Body"))
         {
             Reset();
         }
@@ -78,19 +80,11 @@ public class Snake : MonoBehaviour
         this.transform.position = Vector3.zero;
         bodys.Add(this.transform);
 
-        for(int i=1; i<initalSize; i++){
+        for (int i = 1; i < initalSize; i++)
+        {
             bodys.Add(Instantiate(bodyPrefab));
         }
 
         direction = Vector2.zero;
-    }
-    public bool inBody(float x, float y)
-    {
-        for (int i = 0; i < bodys.Count; i++){
-            if(bodys[i].transform.position.x == x && bodys[i].transform.position.y == y){
-                return true;
-            }
-        }
-        return false;
     }
 }
