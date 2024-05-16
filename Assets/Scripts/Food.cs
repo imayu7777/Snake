@@ -1,45 +1,80 @@
 
 using System;
+using System.Drawing;
 using UnityEngine;
 
 public class Food : MonoBehaviour
 {
     public BoxCollider2D grid;
-    
+    Bounds bounds;
+    private Snake snake;
+
     void Start()
     {
+        snake = FindObjectOfType<Snake>();
+        bounds = grid.bounds;
         RandomPosition();
     }
     void Update()
     {
-        
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if( other.tag == "Player"){
-            // 碰到蛇头
-            RandomPosition();
-        }
-        else if( other.tag == "Body"){
-            // 碰到蛇身，即食物生成在蛇身上
+        if (other.tag == "Player")
+        {
             RandomPosition();
         }
     }
-    private void RandomPosition(){
-        Bounds bounds = grid.bounds;
+    private void RandomPosition()
+    {
+        int x = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.x, bounds.max.x));
+        int y = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.y, bounds.max.y));
 
-        float x = UnityEngine.Random.Range(bounds.min.x, bounds.max.x);
-        float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
+        Vector2Int coordinate = AlignFoodWithBody(x, y);
 
-        x = Mathf.Round(x);
-        y = Mathf.Round(y);
+        // 防止生成在蛇身上
+        while (snake.Occupies(x, y))
+        {
+            x += 4; //+4 保持对齐
 
+            if (x > bounds.max.x)
+            {
+                x = Mathf.RoundToInt(bounds.min.x);
+                y += 4;
+
+                if (y > bounds.max.y) {
+                    y = Mathf.RoundToInt(bounds.min.y);
+                }
+            }
+        }
+
+        this.transform.position = new Vector3(coordinate.x, coordinate.y, 0.0f);
+    }
+    private Vector2Int AlignFoodWithBody(int x, int y){
         // 因为snake的scale是2，所以它的面积实际上是乘以4
-        // 当坐标不是4的整数时，食物无法与蛇头对齐
-        // 但我这样盲目减去余数，可能导致食物生成在墙外
-        if (x % 4 != 0) x -= x % 4;
-        if (y % 4 != 0) y -= y % 4;
-
-        this.transform.position = new Vector3(x, y, 0.0f);
+        // 当坐标不是4的整数时，食物无法与蛇头对齐，将坐标向中心适当移动
+        if (x % 4 != 0)
+        {
+            if (x > bounds.center.x)
+            {
+                x -= x % 4;
+            }
+            else
+            {
+                x += 4 - x % 4;
+            }
+        }
+        if (y % 4 != 0){
+            if (y > bounds.center.y)
+            {
+                y -= y % 4;
+            }
+            else
+            {
+                y += 4 - y % 4;
+            }
+        }
+        return new Vector2Int(x, y);
     }
 }

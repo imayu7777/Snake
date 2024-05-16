@@ -8,7 +8,7 @@ public class Snake : MonoBehaviour
     public List<Transform> bodys = new List<Transform>();
     public Transform bodyPrefab;    //用prefab初始化即可
     public int initalSize = 4;
-    public float fixedTimeIncreasement = 0.01f;
+    public float fixedTimeIncreasement = 0.0001f;
     void Start()
     {
         Reset();
@@ -47,7 +47,9 @@ public class Snake : MonoBehaviour
             Mathf.Round(transform.position.y + direction.y * transform.localScale.y),
             0.0f
         );
-        Time.fixedDeltaTime += fixedTimeIncreasement;
+        if(Time.fixedDeltaTime > 0){
+            Time.fixedDeltaTime -= fixedTimeIncreasement;
+        }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -86,5 +88,18 @@ public class Snake : MonoBehaviour
         }
 
         direction = Vector2.zero;
+        Time.fixedDeltaTime = 0.2f;
+    }
+    public bool Occupies(int x, int y)
+    {
+        foreach (Transform body in bodys)
+        {
+            if (Mathf.RoundToInt(body.position.x) == x &&
+                Mathf.RoundToInt(body.position.y) == y) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
