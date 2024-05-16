@@ -1,6 +1,6 @@
-rigidbody —— 碰撞检测，提供移动功能 - 设置xx禁用重力、摩擦力等物理属性
+rigidbody —— 设置碰撞后的反应，提供移动功能 - 设置xx禁用重力、摩擦力等物理属性
 
-collider —— 定义碰撞检测的面积 - 勾选collider-isTrigger，设置为触发器
+collider —— 碰撞检测 - 勾选collider-isTrigger，设置为触发器
 
 >   触发器：
 >   * 当一个 Collider 被设置为触发器时，它不会对其他碰撞器引起物理碰撞的影响。
