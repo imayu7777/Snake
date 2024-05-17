@@ -9,6 +9,7 @@ public class Snake : MonoBehaviour
     public Transform bodyPrefab;    //用prefab初始化即可
     public int initalSize = 4;
     public float fixedTimeIncreasement = 0.0001f;
+    public SoundManager sound;
     void Start()
     {
         Reset();
@@ -55,10 +56,12 @@ public class Snake : MonoBehaviour
     {
         if (other.tag == "Food")
         {
+            sound.PlayEatSound();
             Grow();
         }
         else if (direction != Vector2.zero && (other.tag == "Wall" || other.tag == "Body"))
         {
+            sound.PlayEndSound();
             Reset();
         }
     }

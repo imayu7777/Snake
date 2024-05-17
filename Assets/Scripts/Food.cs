@@ -15,10 +15,6 @@ public class Food : MonoBehaviour
         bounds = grid.bounds;
         RandomPosition();
     }
-    void Update()
-    {
-
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -31,20 +27,21 @@ public class Food : MonoBehaviour
         int x = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.x, bounds.max.x));
         int y = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.y, bounds.max.y));
 
+        // 对齐网格
         Vector2Int coordinate = AlignFoodWithBody(x, y);
 
         // 防止生成在蛇身上
-        while (snake.Occupies(x, y))
+        while (snake.Occupies(coordinate.x, coordinate.y))
         {
-            x += 4; //+4 保持对齐
+            coordinate.x += 4; //+4 保持对齐
 
-            if (x > bounds.max.x)
+            if (coordinate.x > bounds.max.x)
             {
-                x = Mathf.RoundToInt(bounds.min.x);
-                y += 4;
+                coordinate.x = Mathf.RoundToInt(bounds.min.x);
+                coordinate.y += 4;
 
-                if (y > bounds.max.y) {
-                    y = Mathf.RoundToInt(bounds.min.y);
+                if (coordinate.y > bounds.max.y) {
+                    coordinate.y = Mathf.RoundToInt(bounds.min.y);
                 }
             }
         }
