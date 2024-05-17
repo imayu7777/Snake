@@ -9,18 +9,21 @@ public class GameManager : MonoBehaviour
     public int hiscore;
     private Snake snake;
     public AudioSource audioSource;
-    public AudioClip[] sounds;
+    public AudioClip[] sounds;  //0~打开游戏，-0~关闭游戏， -1~游戏结束， 1~-1 游戏中的音效
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
+    public Food greatFood;
     void Start()
     {
         snake = FindObjectOfType<Snake>();
         hiscore = PlayerPrefs.GetInt("Hiscore", 0);
         hiscoreText.SetText(hiscore.ToString());
         audioSource = GetComponent<AudioSource>();
+        DisableGreatFood();
+        PlaySound(0);
     }
     public void GameOver(){
-        PlayEndSound();
+        PlaySound(sounds.Length-2);
         score = 0;
         scoreText.SetText(score.ToString());
         snake.Reset();
@@ -38,19 +41,41 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("Hiscore", hiscore);
             hiscoreText.SetText(hiscore.ToString());
         }
+        
+        if(score % 5 == 0 ){
+            EnableGreatFood();
+        }
     }
     public void PlayEatSound()
     {
-        int index = Random.Range(0, sounds.Length-1);
+        int index = Random.Range(1, sounds.Length-2);
         if (index >= 0 && index < sounds.Length)
         {
+            PlaySound(index);
+        }
+    }
+    public void PlaySound(int index)
+    {
+        if (index >= 0 && index < sounds.Length){
             audioSource.clip = sounds[index];
             audioSource.Play();
         }
+        
     }
-    public void PlayEndSound()
+    public void EnableGreatFood()
     {
-        audioSource.clip = sounds[sounds.Length-1];
-        audioSource.Play();
+        greatFood.enabled = true;
+        greatFood.RandomPosition();
+    }
+    public void DisableGreatFood()
+    {
+        greatFood.enabled = false;
+        Debug.Log("disable");
+    }
+    void OnApplicationQuit()
+    {
+        // 游戏退出时执行的逻辑
+        Debug.Log("Game is quitting!");
+        PlaySound(sounds.Length-1);
     }
 }

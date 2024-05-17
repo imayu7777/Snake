@@ -17,12 +17,12 @@ public class Food : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && this.gameObject.tag != "GreatFood")
         {
             RandomPosition();
         }
     }
-    private void RandomPosition()
+    public void RandomPosition()
     {
         int x = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.x, bounds.max.x));
         int y = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.y, bounds.max.y));

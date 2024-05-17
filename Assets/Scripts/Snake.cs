@@ -63,6 +63,10 @@ public class Snake : MonoBehaviour
         {
             manager.GameOver();
         }
+        else if(other.tag == "GreatFood"){
+            manager.Eat(5);
+            manager.DisableGreatFood();
+        }
     }
     private void Grow()
     {
