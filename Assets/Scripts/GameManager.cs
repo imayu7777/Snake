@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
     public Food greatFood;
+    private int foodCount;
     void Start()
     {
+        foodCount = 0;
         snake = FindObjectOfType<Snake>();
         hiscore = PlayerPrefs.GetInt("Hiscore", 0);
         hiscoreText.SetText(hiscore.ToString());
@@ -31,6 +33,14 @@ public class GameManager : MonoBehaviour
     public void Eat(int reward){
         PlayEatSound();
         UpdateScore(reward);
+        if(reward == 1){
+            //统计吃过的食物的数量
+            foodCount ++;
+        }
+        if(foodCount % 5 == 0){
+            //每吃到5个食物，就产生一个大号食物
+            EnableGreatFood();
+        }
     }
     private void UpdateScore(int reward)
     {
@@ -40,10 +50,6 @@ public class GameManager : MonoBehaviour
             hiscore = score;
             PlayerPrefs.SetInt("Hiscore", hiscore);
             hiscoreText.SetText(hiscore.ToString());
-        }
-        
-        if(score % 5 == 0 ){
-            EnableGreatFood();
         }
     }
     public void PlayEatSound()
@@ -64,17 +70,19 @@ public class GameManager : MonoBehaviour
     }
     public void EnableGreatFood()
     {
-        greatFood.enabled = true;
+        greatFood.gameObject.SetActive(true);
         greatFood.RandomPosition();
+        snake.GreatFace();
     }
     public void DisableGreatFood()
     {
-        greatFood.enabled = false;
-        Debug.Log("disable");
+        greatFood.gameObject.SetActive(false);
+        snake.UsualFace();
     }
     void OnApplicationQuit()
     {
         // 游戏退出时执行的逻辑
+        // 无法正常播放音频，推测是此时音频组件已经被销毁
         Debug.Log("Game is quitting!");
         PlaySound(sounds.Length-1);
     }

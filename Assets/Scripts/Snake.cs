@@ -10,9 +10,13 @@ public class Snake : MonoBehaviour
     public int initalSize = 4;
     public float fixedTimeIncreasement = 0.0001f;
     public GameManager manager;
+    public Sprite usualFace, greatFace;
+    //SpriteRenderer spriteRenderer;
     void Start()
     {
         Reset();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+        UsualFace();
     }
     private void Update()
     // 按帧调用
@@ -107,5 +111,17 @@ public class Snake : MonoBehaviour
         }
 
         return false;
+    }
+    public void UsualFace()
+    {
+        SpriteRenderer spriteRenderer;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = usualFace;
+    }
+    public void GreatFace()
+    {
+        SpriteRenderer spriteRenderer;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = greatFace;
     }
 }

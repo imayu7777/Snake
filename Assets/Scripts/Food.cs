@@ -7,18 +7,18 @@ public class Food : MonoBehaviour
 {
     public BoxCollider2D grid;
     Bounds bounds;
-    private Snake snake;
+    public Snake snake;
 
     void Start()
     {
-        snake = FindObjectOfType<Snake>();
         bounds = grid.bounds;
         RandomPosition();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && this.gameObject.tag != "GreatFood")
+        if (other.tag == "Player" && gameObject.tag != "GreatFood")
         {
+            // 除 GreatFood 以外的食物，被吃掉时应该移动位置
             RandomPosition();
         }
     }
