@@ -1,3 +1,4 @@
+## 刚体与碰撞器
 rigidbody —— 设置碰撞后的反应，提供移动功能 - 设置xx禁用重力、摩擦力等物理属性
 
 collider —— 碰撞检测 - 勾选collider-isTrigger，设置为触发器
@@ -9,13 +10,13 @@ collider —— 碰撞检测 - 勾选collider-isTrigger，设置为触发器
 >   * 触发器可以检测到其他游戏对象进入或退出它们的区域，并触发 OnTrigger 等触发器事件。
 
 
-
+## 关于组件初始化
 `GetComponent<>()`      用于从`当前游戏对象`上获取指定类型的组件。
 
 `FindObjectOfType<>()`  会在`整个场景`中搜索该类型的组件，并返回第一个找到的实例。
 
 
-
+## 绘制 UI 时
 绘制UI时，最好先建立一个 `Canvas`，因为canvas的坐标系和世界坐标系不同，UI 中的组件都使用canvas坐标系。
 
 在这个项目中，我想实现一个计分板，需要一块矩形，两个文本框
@@ -31,7 +32,16 @@ collider —— 碰撞检测 - 勾选collider-isTrigger，设置为触发器
 完成后可以删除水平布局组件了
 
 
-
+## SetActive and enabled
 `SetActive()` 用于控制 GameObject 的激活状态。当一个 GameObject 被禁用时，它的所有组件都会被禁用，不执行任何功能。
 
 `enabled` 用于控制组件的启用状态。当一个组件被禁用时，它不会执行其相关的功能，但其 GameObject 仍然处于激活状态，可以被其他组件或脚本访问。
+
+
+
+## 绘制乌萨奇为蛇头：
+在 usaqi.png 的 `Sprite Editor` 中，选择 `custom pivot` 调整原点位置，使其与蛇身合理对齐
+
+Snake 的 SpriteRenderer.Order in Layer 设置为 1，使其优先绘制，不会被蛇身遮挡
+
+
