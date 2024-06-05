@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public int hiscore;
     private Snake snake;
     public AudioSource audioSource;
-    public AudioClip[] sounds;  //0~打开游戏，-0~关闭游戏， -1~游戏结束， 1~-1 游戏中的音效
+    public AudioClip eatSound;
+    public AudioClip deadSound;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
     public Food greatFood;
@@ -22,10 +23,10 @@ public class GameManager : MonoBehaviour
         hiscoreText.SetText(hiscore.ToString());
         audioSource = GetComponent<AudioSource>();
         DisableGreatFood();
-        PlaySound(0);
     }
     public void GameOver(){
-        PlaySound(sounds.Length-2);
+        audioSource.clip = deadSound;
+        audioSource.Play();
         score = 0;
         scoreText.SetText(score.ToString());
         snake.Reset();
@@ -54,19 +55,8 @@ public class GameManager : MonoBehaviour
     }
     public void PlayEatSound()
     {
-        int index = Random.Range(1, sounds.Length-2);
-        if (index >= 0 && index < sounds.Length)
-        {
-            PlaySound(index);
-        }
-    }
-    public void PlaySound(int index)
-    {
-        if (index >= 0 && index < sounds.Length){
-            audioSource.clip = sounds[index];
-            audioSource.Play();
-        }
-        
+        audioSource.clip = eatSound;
+        audioSource.Play();
     }
     public void EnableGreatFood()
     {
@@ -78,12 +68,5 @@ public class GameManager : MonoBehaviour
     {
         greatFood.gameObject.SetActive(false);
         snake.UsualFace();
-    }
-    void OnApplicationQuit()
-    {
-        // 游戏退出时执行的逻辑
-        // 无法正常播放音频，推测是此时音频组件已经被销毁
-        Debug.Log("Game is quitting!");
-        PlaySound(sounds.Length-1);
     }
 }

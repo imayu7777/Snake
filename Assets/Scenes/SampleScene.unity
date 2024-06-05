@@ -312,7 +312,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.08, y: 1.0933334}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -362,8 +362,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: ca619c1d0979b204ab0356a42c92fd12, type: 3}
-  m_Color: {r: 0.9481132, g: 0.5566022, b: 0.17441708, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5a2692baece25214a862397dffc3cfde, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -575,7 +575,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: ca619c1d0979b204ab0356a42c92fd12, type: 3}
-  m_Color: {r: 0.09807761, g: 0.4550856, b: 0.5471698, a: 1}
+  m_Color: {r: 0.5137255, g: 0.72156864, b: 0.5764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -679,7 +679,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 797268929}
   - component: {fileID: 797268928}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Wall_LEFT
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1156,7 +1156,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: ca619c1d0979b204ab0356a42c92fd12, type: 3}
-  m_Color: {r: 0.09807761, g: 0.4550856, b: 0.5471698, a: 1}
+  m_Color: {r: 0.5137255, g: 0.72156864, b: 0.5764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1444,15 +1444,8 @@ MonoBehaviour:
   score: 0
   hiscore: 0
   audioSource: {fileID: 0}
-  sounds:
-  - {fileID: 8300000, guid: afb776263d58e5945aa1a636465895db, type: 3}
-  - {fileID: 8300000, guid: 6e9fceec37e82e44b97f928f3d411875, type: 3}
-  - {fileID: 8300000, guid: 844fc6950497c324bab008436d840fa1, type: 3}
-  - {fileID: 8300000, guid: 69f14a9dc4c821f49a41519dfc48804c, type: 3}
-  - {fileID: 8300000, guid: fb27aaffc28b7f946a43baf4ab450e2a, type: 3}
-  - {fileID: 8300000, guid: 97ae6aaaa85ca6f42b99333ad95d97d3, type: 3}
-  - {fileID: 8300000, guid: ed3c1e7a311ed56449078535d0d511e6, type: 3}
-  - {fileID: 8300000, guid: d8cdefae5f739f34992242c16f047b95, type: 3}
+  eatSound: {fileID: 8300000, guid: b5dc9b0c862260f469583b3719b310ee, type: 3}
+  deadSound: {fileID: 8300000, guid: 9dfaa8a1ac09ad74181dd14911fbac96, type: 3}
   scoreText: {fileID: 511088861}
   hiscoreText: {fileID: 1039148168}
   greatFood: {fileID: 1299704931}
@@ -1580,8 +1573,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 502d6c28b074e85488e04d7a563fb502, type: 3}
-  m_Color: {r: 0.88235295, g: 0.8726418, b: 0.35686275, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1c9d1c0479e0ce846a66f2b54bf8c72b, type: 3}
+  m_Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1601,7 +1594,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12, y: -5, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2.9999998, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2174,7 +2167,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: ca619c1d0979b204ab0356a42c92fd12, type: 3}
-  m_Color: {r: 0.09807761, g: 0.4550856, b: 0.5471698, a: 1}
+  m_Color: {r: 0.5137255, g: 0.72156864, b: 0.5764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2275,7 +2268,7 @@ GameObject:
   - component: {fileID: 1982921253}
   - component: {fileID: 1982921252}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Wall_RIGHT
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2368,7 +2361,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: ca619c1d0979b204ab0356a42c92fd12, type: 3}
-  m_Color: {r: 0.09807761, g: 0.4550856, b: 0.5471698, a: 1}
+  m_Color: {r: 0.5137255, g: 0.72156864, b: 0.5764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
