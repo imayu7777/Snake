@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         scoreText.SetText(score.ToString());
         snake.Reset();
+        foodCount = 0;
+        DisableGreatFood();
     }
     public void Eat(int reward){
         PlayEatSound();
